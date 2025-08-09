@@ -1,0 +1,26 @@
+<h1>銘柄一覧</h1>
+
+<form (submit)="$event.preventDefault(); fetch()">
+    <input type="text" [(ngModel)]="q" name="q" placeholder="検索ワード（任意）" />
+    <button type="submit">検索</button>
+</form>
+
+<div *ngIf="loading">読み込み中...</div>
+<div *ngIf="error" style="color:crimson">エラー： {{ error }}</div>
+
+<table *ngIf="!loading && !error">
+    <thead>
+        <tr>
+            <th>コード</th>
+            <th>名称</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let s of items">
+            <td>{{ s.code }}</td>
+            <td>{{ s.name }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="!loading && !error && items.length === 0">データがありません。</div>
